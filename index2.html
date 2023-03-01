@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Авторизация</title>
+	<style>
+		.login {
+			margin: 20px auto;
+			padding: 20px;
+			width: 300px;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			text-align: center;
+		}
+
+		h2 {
+			margin-top: 0;
+		}
+
+		label {
+			display: inline-block;
+			text-align: left;
+			margin-top: 10px;
+		}
+
+		input {
+			display: block;
+			margin-top: 5px;
+			padding: 5px;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			width: 100%;
+		}
+
+		button {
+			margin-top: 20px;
+			padding: 5px 10px;
+			border: none;
+			border-radius: 5px;
+			background-color: #4CAF50;
+			color: white;
+			cursor: pointer;
+		}
+
+		button:hover {
+			background-color: #3E8E41;
+		}
+
+		#error-message {
+			color: red;
+			font-weight: bold;
+			margin-top: 10px;
+		}
+	</style>
+</head>
+<body>
+	<div class="login">
+		<h2>Авторизация</h2>
+		<form id="login-form" method="post">
+			<label for="email">Email:</label>
+			<input type="email" name="email" id="email" required>
+
+			<label for="password">Пароль:</label>
+			<input type="password" name="password" id="password" required>
+
+			<button type="submit" id="login-button">Войти</button>
+		</form>
+		<div id="error-message"></div>
+	</div>
+
+	<script>
+		// Подготовка под алерт
+		document.getElementById("login-form").addEventListener("submit", function(event) {
+			event.preventDefault();
+
+			var email = document.getElementById("email").value;
+			var password = document.getElementById("password").value;
+			var errorMessage = "";
+
+			// Проверка пароля
+			if (password.length < 6) {
+				errorMessage = "Пароль должен содержать не менее 6 символов";
+			} else if (!/[a-z]/.test(password) || !/[A-Z]/.test(password)) {
+				errorMessage = "Пароль должен содержать символы разных регистров";
+			} else if (!/\d/.test(password)) {
+				errorMessage = "Пароль должен содержать цифры";
+			} else if (!/\W/.test(password)) {
+				errorMessage = "Пароль должен содержать специальные символы";
+			}
+
+			if (errorMessage) {
+				document.getElementById("error-message").textContent = errorMessage;
+			} else {
+				document.getElementById("error-message").textContent = "";
+				alert("Успешная авторизация");
+			}
+		});
+	</script>
+</body>
+</html>
